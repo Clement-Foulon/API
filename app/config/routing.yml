@@ -1,0 +1,4 @@
+test_api:
+    resource: "@TestApiBundle/Resources/config/routing.yml"
+    prefix:   /
+

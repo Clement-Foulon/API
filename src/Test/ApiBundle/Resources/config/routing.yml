@@ -1,0 +1,11 @@
+contacts:
+    type:     rest
+    resource: Test\ApiBundle\Controller\ContactController
+    
+users:
+    type:     rest
+    resource: Test\ApiBundle\Controller\UserController
+    
+tokens:
+    type:     rest
+    resource: Test\ApiBundle\Controller\TokenController
