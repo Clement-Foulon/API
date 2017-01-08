@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Client</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+        <script src="{{ asset('js/client.js') }}"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <form>
+                <div class="form-group col-md-2" style="margin-top: 3%">
+                    <label for="recherche">Recherche:</label>
+                    <input type="text" ng-model="filtreProjet" class="form-control" id="recherche">
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-8" style="margin-top: 3%">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Civilite</th>
+                                <th>Prenom</th>
+                                <th>Nom</th>
+                                <th>Date de naissance</th>
+                                <th>Rue</th>
+                                <th>Code postal</th>
+                                <th>Ville</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="contact in contacts | filter:filtreProjet">
+                                <td>{% verbatim %}{{ contact.civilite}}{% endverbatim %}</td>
+                                <td>{% verbatim %}{{ contact.prenom}}{% endverbatim %}</td>
+                                <td>{% verbatim %}{{ contact.nom}}{% endverbatim %}</td>
+                                <td>{% verbatim %}{{ contact.dateNaissance}}{% endverbatim %}</td>
+                                <td>{% verbatim %}{{ contact.adresses[0].rue}}{% endverbatim %}</td>
+                                <td>{% verbatim %}{{ contact.adresses[0].codePostal}}{% endverbatim %}</td>
+                                <td>{% verbatim %}{{ contact.adresses[0].ville}}{% endverbatim %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

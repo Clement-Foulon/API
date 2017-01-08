@@ -78,4 +78,11 @@ fos_rest:
         view_response_listener: true
     format_listener:
         rules:
-            - { path: '^/', priorities: ['json'], fallback_format: 'json' }
+            - { path: '^/contacts', priorities: ['json'], fallback_format: 'json' }
+            - { path: '^/user', priorities: ['json'], fallback_format: 'json' }
+            - { path: '^/token', priorities: ['json'], fallback_format: 'json' }
+            - { path: '^/client', priorities: ['html'], fallback_format: 'html' }
+  
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'

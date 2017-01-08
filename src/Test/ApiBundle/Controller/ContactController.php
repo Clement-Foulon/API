@@ -103,7 +103,7 @@ class ContactController extends Controller {
 
         $em->merge($contact);
         $em->flush();
-        
+
         return $this->redirect("http://localhost/API/web/app_dev.php/contacts/" . $contact->getId());
     }
 
