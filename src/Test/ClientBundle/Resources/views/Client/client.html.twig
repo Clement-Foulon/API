@@ -8,7 +8,18 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <body>
-        <div ng-app="myApp" ng-controller="myCtrl">
+
+        <div ng-app="myApp" ng-controller="contactController">
+            <form>
+                <div class="form-group col-md-2" style="margin-top: 3%">
+                    <label for="login">login:</label>
+                    <input type="text" class="form-control" id="login" ng-model="login">
+                    <label for="password">password:</label>
+                    <input type="text" class="form-control" id="password" ng-model="password">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="addToken()">Ajouter token</button>
+                </div>
+            </form> 
+           <label for="login">{% verbatim %}{{ token.value}}{% endverbatim %}</label>
             <form>
                 <div class="form-group col-md-2" style="margin-top: 3%">
                     <label for="recherche">Recherche:</label>
@@ -20,6 +31,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Civilite</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
@@ -31,6 +43,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="contact in contacts | filter:filtreProjet">
+                                <td>{% verbatim %}{{ contact.id}}{% endverbatim %}</td>
                                 <td>{% verbatim %}{{ contact.civilite}}{% endverbatim %}</td>
                                 <td>{% verbatim %}{{ contact.prenom}}{% endverbatim %}</td>
                                 <td>{% verbatim %}{{ contact.nom}}{% endverbatim %}</td>
@@ -38,6 +51,19 @@
                                 <td>{% verbatim %}{{ contact.adresses[0].rue}}{% endverbatim %}</td>
                                 <td>{% verbatim %}{{ contact.adresses[0].codePostal}}{% endverbatim %}</td>
                                 <td>{% verbatim %}{{ contact.adresses[0].ville}}{% endverbatim %}</td>
+                                <td><button type="button" class="btn btn-default btn-sm" ng-click="deleteContact(contact.id)">Supprimer</button></td>
+                            </tr>
+                            <tr>     
+                                <td></td>
+                                <td><input type="text" class="form-control" input-sm ng-model="contact.civilite" placeholder="Civilite"/></td>
+                                <td><input type="text" class="form-control" input-sm ng-model="contact.prenom" placeholder="Prenom"/></td>
+                                <td><input type="text" class="form-control" input-sm ng-model="contact.nom" placeholder="Nom"/></td>
+                                <td><input type="text" class="form-control" input-sm ng-model="contact.dateNaissance" placeholder="Date de naissance"/></td>
+                                <td><input type="text" class="form-control" input-sm ng-model="contact.adresses.rue" placeholder="Rue"/></td>
+                                <td><input type="text" class="form-control" input-sm ng-model="contact.adresses.codePostal" placeholder="Code postal"/></td>
+                                <td><input type="text" class="form-control" input-sm ng-model="contact.adresses.ville" placeholder="Ville"/></td>
+
+                                <td><button type="button" class="btn btn-default btn-sm" ng-click="addContact()">Ajouter</button></td>
                             </tr>
                         </tbody>
                     </table>

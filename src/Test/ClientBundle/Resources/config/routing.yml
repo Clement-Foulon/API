@@ -1,3 +1,4 @@
 test_client_homepage:
     path:     /client
     defaults: { _controller: TestClientBundle:Client:client }
+    

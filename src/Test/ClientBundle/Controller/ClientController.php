@@ -9,5 +9,5 @@ class ClientController extends Controller {
     public function clientAction() {
         return $this->render('TestClientBundle:Client:client.html.twig');
     }
-
+    
 }
