@@ -86,10 +86,13 @@ class ContactController extends Controller {
      * @Rest\View()
      * @Rest\Patch("/contacts/{id}")
      */
-    public function patchContactAction(Request $request) {
+    public function updateContactAction(Request $request) {
         $em = $this->get('doctrine.orm.entity_manager');
         $contact = $em->getRepository('TestApiBundle:Contact')
                 ->find($request->get('id'));
+
+        $adresse = $em->getRepository('TestApiBundle:Adresse')
+                ->find($request->get('idadresse'));
 
         if (empty($contact)) {
             return new JsonResponse(['message' => 'Contact not found'], Response::HTTP_NOT_FOUND);
@@ -100,10 +103,18 @@ class ContactController extends Controller {
         $contact->setPrenom($request->get('prenom'));
         $contact->setDateNaissance($request->get('datenaissance'));
         $contact->setMisAjour(new \DateTime());
+        
+        $adresse->setCodePostal($request->get('codepostal'));
+        $adresse->setVille($request->get('ville'));
+        $adresse->setRue($request->get('rue'));
+        $adresse->setMisAjour(new \DateTime());
+
+        $adresse->setContact($contact);
 
         $em->merge($contact);
+        $em->merge($adresse);
         $em->flush();
-
+        
         return $this->redirect("http://localhost/API/web/app_dev.php/contacts/" . $contact->getId());
     }
 
