@@ -91,12 +91,16 @@ class ContactController extends Controller {
         $contact = $em->getRepository('TestApiBundle:Contact')
                 ->find($request->get('id'));
 
-        $adresse = $em->getRepository('TestApiBundle:Adresse')
-                ->find($request->get('idadresse'));
+        $adresse = $contact->getAdresses();
 
         if (empty($contact)) {
             return new JsonResponse(['message' => 'Contact not found'], Response::HTTP_NOT_FOUND);
         }
+        
+          if (empty($adresse)) {
+            return new JsonResponse(['message' => 'adresse not found'], Response::HTTP_NOT_FOUND);
+        }
+             
 
         $contact->setCivilite($request->get('civilite'));
         $contact->setNom($request->get('nom'));
@@ -104,15 +108,13 @@ class ContactController extends Controller {
         $contact->setDateNaissance($request->get('datenaissance'));
         $contact->setMisAjour(new \DateTime());
         
-        $adresse->setCodePostal($request->get('codepostal'));
-        $adresse->setVille($request->get('ville'));
-        $adresse->setRue($request->get('rue'));
-        $adresse->setMisAjour(new \DateTime());
+        $adresse[0]->setCodePostal($request->get('codepostal'));
+        $adresse[0]->setVille($request->get('ville'));
+        $adresse[0]->setRue($request->get('rue'));
+        $adresse[0]->setMisAjour(new \DateTime());
 
-        $adresse->setContact($contact);
 
         $em->merge($contact);
-        $em->merge($adresse);
         $em->flush();
         
         return $this->redirect("http://localhost/API/web/app_dev.php/contacts/" . $contact->getId());
